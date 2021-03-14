@@ -1,9 +1,8 @@
-import { findAllByTestId } from '@testing-library/react';
-import React from 'react';
+import React, {Component} from 'react';
 
 import './index.css';
 
-export default class PostListItem extends React.Component{
+export default class PostListItem extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -19,24 +18,28 @@ export default class PostListItem extends React.Component{
     onImportantHandler() {
         this.setState(({important})=>({
             important: !important
-        }) )
+        }))
     }
+
     onLikeHandler() {
         this.setState(({like})=>({
             like: !like
-        }) )
+        }))
     }
     
     render () {
         const {important, like} = this.state;
-        const {label} = this.props;
+        const {label, onDelete} = this.props;
         let classNames = "app-list-item d-flex justify-content-between";
+        
         if (important){
             classNames += " important";
         }
+
         if(like){
             classNames += " like"
         }
+
         return(
             <div className={classNames}>
                 <span 
@@ -53,7 +56,8 @@ export default class PostListItem extends React.Component{
                     </button>
                     <button 
                         className="btn-trash btn-sm"
-                        type="button">
+                        type="button"
+                        onClick={onDelete}>
                             <i className="fa fa-trash-o"></i>
                     </button>
                     <i className="fa fa-heart"></i>
